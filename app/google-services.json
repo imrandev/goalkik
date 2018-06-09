@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "686455441933",
+    "firebase_url": "https://goalkik-cf048.firebaseio.com",
+    "project_id": "goalkik-cf048",
+    "storage_bucket": "goalkik-cf048.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686455441933:android:6108eacc0e7aa856",
+        "android_client_info": {
+          "package_name": "com.codzunk.goalkik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686455441933-otte11p190ak7ta52ge0bnp40tadssk5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codzunk.goalkik",
+            "certificate_hash": "373fa5cc7bb122e7e54cca4a2602018eb2f5d48e"
+          }
+        },
+        {
+          "client_id": "686455441933-fvtiv6lvmv2n7ks1b5sjf8u6s8fl3fe7.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "686455441933-fvtiv6lvmv2n7ks1b5sjf8u6s8fl3fe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9JSYQdLexBsnL4GlXaggE2YGYmwDer0I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686455441933-fvtiv6lvmv2n7ks1b5sjf8u6s8fl3fe7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
