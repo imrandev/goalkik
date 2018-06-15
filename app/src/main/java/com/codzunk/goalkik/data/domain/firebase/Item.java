@@ -1,5 +1,5 @@
 
-package com.codzunk.goalkik.data.domain;
+package com.codzunk.goalkik.data.domain.firebase;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

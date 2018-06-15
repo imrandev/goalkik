@@ -1,6 +1,6 @@
 package com.codzunk.goalkik.prefs.data;
 
-import com.codzunk.goalkik.controllers.model.GroupModel;
+import com.codzunk.goalkik.controllers.model.FixtureModel;
 import com.codzunk.goalkik.prefs.SharedPrefManager;
 
 import java.util.List;
@@ -24,12 +24,12 @@ public class PrefDataManger {
         return prefManager.getMyTeam();
     }
 
-    public List<GroupModel> getGroup(){
-        return prefManager.getGroup();
+    public List<FixtureModel> getFixture(){
+        return prefManager.getFixture();
     }
 
-    public void setGroup(List<GroupModel> modelList){
-        prefManager.setGroup(modelList);
+    public void setFixture(List<FixtureModel> modelList){
+        prefManager.setFixture(modelList);
     }
 
     public boolean isPrefAvailable(String item){

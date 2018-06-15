@@ -1,8 +1,5 @@
 
-package com.codzunk.goalkik.data.domain;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+package com.codzunk.goalkik.data.domain.firebase;
 
 public class Timeline {
 

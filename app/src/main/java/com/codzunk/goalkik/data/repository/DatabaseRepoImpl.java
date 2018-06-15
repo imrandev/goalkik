@@ -8,9 +8,9 @@ import com.codzunk.goalkik.controllers.firebase.DatabaseRefController;
 import com.codzunk.goalkik.controllers.model.GroupModel;
 import com.codzunk.goalkik.controllers.model.ItemModel;
 import com.codzunk.goalkik.controllers.model.WinnerModel;
-import com.codzunk.goalkik.data.domain.Data;
-import com.codzunk.goalkik.data.domain.Group;
-import com.codzunk.goalkik.data.domain.Item;
+import com.codzunk.goalkik.data.domain.firebase.Data;
+import com.codzunk.goalkik.data.domain.firebase.Group;
+import com.codzunk.goalkik.data.domain.firebase.Item;
 import com.codzunk.goalkik.prefs.data.PrefDataManger;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,7 +61,6 @@ public class DatabaseRepoImpl implements DatabaseRepo {
                 groupList.add(model);
             }
             refController.getList(groupList);
-            prefManager.setGroup(groupList);
         }
     }
 

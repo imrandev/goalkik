@@ -29,7 +29,7 @@ public class GoalApp extends Application {
         dataManger = new PrefDataManger(prefManager);
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/LTYPE.TTF")
+                .setDefaultFontPath("fonts/Dusha.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

@@ -53,12 +53,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             holder.name.setText(modelList.get(size).getName());
             String rank = Config.RANK + " " + modelList.get(size).getItemModels().get(item).getRank();
             holder.rank.setText(rank);
-            holder.level.setText(modelList.get(size).getItemModels().get(item).getHLevel());
-            String played = Config.PLAYED + " " + modelList.get(size).getItemModels().get(item).getPlayed();
-            holder.played.setText(played);
-            holder.star.setText(modelList.get(size).getItemModels().get(item).getStarPlayer());
             holder.team.setText(modelList.get(size).getItemModels().get(item).getTeam());
-            holder.coach.setText(modelList.get(size).getItemModels().get(item).getCoach());
 
             Picasso.with(context).load(Uri.parse(modelList.get(size).getItemModels().get(item).getIcon())).into(holder.icon);
         } catch (Exception e){
@@ -72,7 +67,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView name, rank, level, played, star, team, coach;
+        private TextView name, rank, team;
         private ImageView icon;
 
         ViewHolder(View itemView) {
@@ -80,11 +75,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
             name = itemView.findViewById(R.id.name);
             rank = itemView.findViewById(R.id.rank);
-            level = itemView.findViewById(R.id.level);
-            played = itemView.findViewById(R.id.played);
-            star = itemView.findViewById(R.id.star);
             team = itemView.findViewById(R.id.team);
-            coach = itemView.findViewById(R.id.coach);
             icon = itemView.findViewById(R.id.icon);
         }
     }

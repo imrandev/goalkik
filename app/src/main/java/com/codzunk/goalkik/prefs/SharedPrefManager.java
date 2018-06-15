@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.codzunk.goalkik.constant.Config;
-import com.codzunk.goalkik.controllers.model.GroupModel;
+import com.codzunk.goalkik.controllers.model.FixtureModel;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -31,18 +31,18 @@ public class SharedPrefManager {
         return sharedPreferences.getString(Config.MY_TEAM, Config.DEFAULT_TEAM);
     }
 
-    public void setGroup(List<GroupModel> modelList){
+    public void setFixture(List<FixtureModel> modelList){
         Gson gson = new Gson();
-        sharedPreferences.edit().putString(Config.GROUP_DATA, gson.toJson(modelList)).apply();
+        sharedPreferences.edit().putString(Config.FIX_DATA, gson.toJson(modelList)).apply();
     }
 
-    public List<GroupModel> getGroup(){
-        List<GroupModel> modelList;
+    public List<FixtureModel> getFixture(){
+        List<FixtureModel> modelList;
 
         if(sharedPreferences.contains(Config.GROUP_DATA)){
             Gson gson = new Gson();
-            String json = sharedPreferences.getString(Config.GROUP_DATA,null);
-            GroupModel [] models = gson.fromJson(json,GroupModel[].class);
+            String json = sharedPreferences.getString(Config.FIX_DATA,null);
+            FixtureModel [] models = gson.fromJson(json,FixtureModel[].class);
 
             modelList = Arrays.asList(models);
             modelList = new ArrayList<>(modelList);

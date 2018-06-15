@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">Goal-Kik</string>
     <string name="team_info">Team Information</string>
-    <string name="dashboard">DASHBOARD</string>
+    <string name="teams">TEAMS</string>
+    <string name="fixture">COMING UP</string>
+    <string name="match_day">Match</string>
+    <string name="standings">STANDINGS</string>
+    <string name="live_scores">LIVE SCORES</string>
+    <string name="tomorrow">TOMORROW</string>
+    <string name="today">TODAY</string>
+    <string name="no_match">No Match Starts Yet!</string>
+    <string name="bullet_symbol">\u2022 Live</string>
+    <string name="ended">Ended</string>
+
+    <string name="Banner_test">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="Interstitial_test">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="Banner">ca-app-pub-9551927371844997/7546645313</string>
+    <string name="Interstitial">ca-app-pub-9551927371844997/7546645313</string>
+    <string name="ads">Ads</string>
 </resources>
