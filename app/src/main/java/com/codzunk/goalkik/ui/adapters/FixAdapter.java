@@ -52,20 +52,22 @@ public class FixAdapter extends RecyclerView.Adapter<FixAdapter.ViewHolder> {
         }
 
 
-        if (!fixtureList.get(position).isToday()){
+        if (fixtureList.get(position).isToday() == 0){
             if (!isTomorrow){
                 holder.today.setText(R.string.tomorrow);
                 this.isTomorrow = true;
             } else {
                 holder.today.setVisibility(View.GONE);
             }
-        } else {
+        } else if (fixtureList.get(position).isToday() == 1) {
             if (!isToday){
                 holder.today.setText(R.string.today);
                 this.isToday = true;
             } else {
                 holder.today.setVisibility(View.GONE);
             }
+        } else {
+            holder.today.setVisibility(View.GONE);
         }
 
         String status = fixtureList.get(position).getStatus();
@@ -73,14 +75,17 @@ public class FixAdapter extends RecyclerView.Adapter<FixAdapter.ViewHolder> {
         if (status.equals("IN_PLAY")){
             holder.live.setVisibility(View.VISIBLE);
             holder.result.setVisibility(View.GONE);
+            holder.match_time.setVisibility(View.GONE);
         } else if (status.equals("FINISHED")){
             holder.live.setText(R.string.ended);
             String result = "\u2022 Full Time " + fixtureList.get(position).getHome() + " - " + fixtureList.get(position).getAway();
             holder.result.setText(result);
             holder.result.setVisibility(View.VISIBLE);
+            holder.match_time.setVisibility(View.GONE);
         } else {
             holder.live.setVisibility(View.GONE);
             holder.result.setVisibility(View.GONE);
+            holder.match_time.setVisibility(View.VISIBLE);
         }
     }
 

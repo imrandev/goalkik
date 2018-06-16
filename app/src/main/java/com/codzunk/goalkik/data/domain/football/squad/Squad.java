@@ -15,7 +15,7 @@ public class Squad {
     private Integer count;
     @SerializedName("players")
     @Expose
-    private List<Player> players = null;
+    private List<Player> players;
 
     public Links getLinks() {
         return links;

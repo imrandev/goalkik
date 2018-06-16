@@ -5,5 +5,5 @@ import com.codzunk.goalkik.data.domain.football.standings.Standings;
 
 public interface TableController {
     void getTables(Standings standings);
-    void getError(String message);
+    void getTableError(String message);
 }

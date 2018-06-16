@@ -1,9 +1,6 @@
 
 package com.codzunk.goalkik.data.domain.firebase;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Item {
 
     private String team;
@@ -13,6 +10,18 @@ public class Item {
     private String coach;
     private String starPlayer;
     private String icon;
+    private String code;
+
+    public Item() {
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getTeam() {
         return team;

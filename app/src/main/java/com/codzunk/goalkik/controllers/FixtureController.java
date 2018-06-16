@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FixtureController {
     void getFixture(List<FixtureModel> fixtureList);
-    void getError(String message);
+    void getFixtureError(String message);
 }

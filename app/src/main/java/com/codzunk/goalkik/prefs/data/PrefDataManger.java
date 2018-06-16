@@ -1,6 +1,9 @@
 package com.codzunk.goalkik.prefs.data;
 
 import com.codzunk.goalkik.controllers.model.FixtureModel;
+import com.codzunk.goalkik.data.domain.football.fixture.Fixture;
+import com.codzunk.goalkik.data.domain.football.squad.Squad;
+import com.codzunk.goalkik.data.domain.football.standings.Standings;
 import com.codzunk.goalkik.prefs.SharedPrefManager;
 
 import java.util.List;
@@ -24,12 +27,36 @@ public class PrefDataManger {
         return prefManager.getMyTeam();
     }
 
-    public List<FixtureModel> getFixture(){
+    public List<Fixture> getFixture(){
         return prefManager.getFixture();
     }
 
-    public void setFixture(List<FixtureModel> modelList){
+    public void setFixture(List<Fixture> modelList){
         prefManager.setFixture(modelList);
+    }
+
+    public List<FixtureModel> getFixtureModel(){
+        return prefManager.getFixtureModel();
+    }
+
+    public void setFixtureModel(List<FixtureModel> modelList){
+        prefManager.setFixtureModel(modelList);
+    }
+
+    public Standings getStandings(){
+        return prefManager.getStandings();
+    }
+
+    public void setStandings(Standings standings){
+        prefManager.setStandings(standings);
+    }
+
+    public Squad getSquad(){
+        return prefManager.getSquad();
+    }
+
+    public void setSquad(Squad squad){
+        prefManager.setSquad(squad);
     }
 
     public boolean isPrefAvailable(String item){

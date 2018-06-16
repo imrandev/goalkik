@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:title="@string/app_name"
+            app:title="@string/dashboard"
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_football"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
@@ -33,6 +33,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/internet"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:background="#80000000"
+                android:text="@string/no_internet_access"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <TextView
+                android:id="@+id/ads"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:padding="5dp"
+                android:gravity="end"
+                android:background="@drawable/btn_click_drawable"
+                android:text="@string/ads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <include
+                layout="@layout/layout_adview"/>
+
+            <TextView
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:gravity="end"
+                android:background="@drawable/btn_click_drawable"
+                android:text="@string/teams"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listView"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:textColor="@android:color/white"
@@ -160,8 +216,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <TextView
-                android:id="@+id/ads"
+            <Button
+                android:id="@+id/fixture_btn"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
@@ -169,37 +225,13 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:padding="5dp"
-                android:gravity="end"
+                android:onClick="onFullFixtureClickEvent"
+                android:gravity="center|end"
                 android:background="@drawable/btn_click_drawable"
-                android:text="@string/ads"
+                android:text="@string/see_full_fixture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-            <include
-                layout="@layout/layout_adview"/>
-
-            <TextView
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:gravity="end"
-                android:background="@drawable/btn_click_drawable"
-                android:text="@string/teams"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/listView"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
             <TextView
                 android:textColor="@android:color/white"

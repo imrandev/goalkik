@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DatabaseRefController {
     void getList(List<GroupModel> modelList);
+    void getFirebaseError(String message);
 }

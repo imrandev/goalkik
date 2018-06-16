@@ -1,6 +1,7 @@
 package com.codzunk.goalkik.data.repository;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.codzunk.goalkik.application.GoalApp;
 import com.codzunk.goalkik.constant.Config;
@@ -10,6 +11,9 @@ import com.codzunk.goalkik.controllers.model.FixtureModel;
 import com.codzunk.goalkik.data.domain.football.fixture.Fixture;
 import com.codzunk.goalkik.data.domain.football.FootballOrg;
 import com.codzunk.goalkik.prefs.data.PrefDataManger;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -43,6 +47,7 @@ public class FixtureRepositoryImpl implements FixtureRepository, Callback<Footba
 
         if (footballOrg != null){
             List<Fixture> fixtureList = footballOrg.getFixtures();
+            prefManger.setFixture(fixtureList);
             List<FixtureModel> modelList = new ArrayList<>(2);
             int size = fixtureList.size();
             for (int i=0; i<size; i++){
@@ -61,7 +66,7 @@ public class FixtureRepositoryImpl implements FixtureRepository, Callback<Footba
                         fixture.setDate(date);
                         fixture.setTime(time);
                         fixture.setStatus(fixtureList.get(i).getStatus());
-                        fixture.setToday(true);
+                        fixture.setToday(1);
                         if (fixtureList.get(i).getResult().getGoalsHomeTeam() != null){
                             fixture.setHome("" + fixtureList.get(i).getResult().getGoalsHomeTeam().toString().charAt(0));
                             fixture.setAway("" + fixtureList.get(i).getResult().getGoalsAwayTeam().toString().charAt(0));
@@ -75,7 +80,7 @@ public class FixtureRepositoryImpl implements FixtureRepository, Callback<Footba
                         fixture.setDate(date);
                         fixture.setTime(time);
                         fixture.setStatus(fixtureList.get(i).getStatus());
-                        fixture.setToday(false);
+                        fixture.setToday(0);
 
                         modelList.add(fixture);
                     } else {
@@ -87,7 +92,7 @@ public class FixtureRepositoryImpl implements FixtureRepository, Callback<Footba
                             fixture.setDate(date);
                             fixture.setTime(time);
                             fixture.setStatus(fixtureList.get(i).getStatus());
-                            fixture.setToday(true);
+                            fixture.setToday(1);
                             if (fixtureList.get(i).getResult().getGoalsHomeTeam() != null){
                                 fixture.setHome("" + fixtureList.get(i).getResult().getGoalsHomeTeam().toString().charAt(0));
                                 fixture.setAway("" + fixtureList.get(i).getResult().getGoalsAwayTeam().toString().charAt(0));
@@ -99,16 +104,14 @@ public class FixtureRepositoryImpl implements FixtureRepository, Callback<Footba
                     e.printStackTrace();
                 }
             }
-            prefManger.setFixture(modelList);
-            if (prefManger.isPrefAvailable(Config.FIX_DATA)){
-                controller.getFixture(prefManger.getFixture());
-            }
+            prefManger.setFixtureModel(modelList);
+            controller.getFixture(modelList);
         }
     }
 
     @Override
     public void onFailure(@NonNull Call<FootballOrg> call, @NonNull Throwable t) {
-        controller.getError(t.getMessage());
+        controller.getFixtureError(t.getMessage());
     }
 
     /*

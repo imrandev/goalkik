@@ -6,8 +6,8 @@ android {
         applicationId "com.codzunk.goalkik"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -29,7 +29,8 @@ ext {
             appCompat           : "com.android.support:appcompat-v7:${supportVersion}",
             supportAnnotation   : "com.android.support:support-annotations:${supportVersion}",
             support_v4          : "com.android.support:support-v4:${supportVersion}",
-            support_media_compat: "com.android.support:support-media-compat:${supportVersion}"
+            support_media_compat: "com.android.support:support-media-compat:${supportVersion}",
+            customtabs          : "com.android.support:customtabs:${supportVersion}"
     ]
     firebaseVersion = '16.0.1'
     // Firebase dependencies
@@ -66,6 +67,17 @@ ext {
             retrofit      : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
             converter_gson: "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
     ]
+
+    svgVersion = '1.0.1'
+    svgLoader = [
+            loader: "com.github.ar-android:AndroidSvgLoader:${svgVersion}"
+    ]
+
+    playServiceVersion = '15.0.1'
+
+    playService = [
+            adMod: "com.google.android.gms:play-services-ads:${playServiceVersion}"
+    ]
 }
 
 dependencies {
@@ -75,15 +87,16 @@ dependencies {
     implementation supportDependencies.support_media_compat
     implementation supportDependencies.design
     implementation supportDependencies.cardView
+    implementation supportDependencies.customtabs
     implementation firebaseDependencies.database
     implementation gsonDependencies.gson
     implementation calligraphyDependencies.calligraphy
     implementation picassoDependencies.picasso
     implementation retrofit2Dependencies.retrofit
     implementation retrofit2Dependencies.converter_gson
+    implementation svgLoader.loader
+    implementation playService.adMod
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'com.google.android.gms:play-services-ads:15.0.1'
-    implementation 'com.android.support:customtabs:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

@@ -1,5 +1,6 @@
 package com.codzunk.goalkik.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
 import android.net.Uri;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ahmadrosid.svgloader.SvgLoader;
 import com.codzunk.goalkik.R;
 import com.codzunk.goalkik.controllers.model.LeagueModel;
 import com.squareup.picasso.Picasso;
@@ -20,10 +23,10 @@ import java.util.ArrayList;
 
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> {
     private ArrayList<LeagueModel> leagueModels;
-    private Context context;
+    private Activity context;
     private boolean isHeader;
 
-    public TableAdapter(ArrayList<LeagueModel> leagueModels, Context context) {
+    public TableAdapter(ArrayList<LeagueModel> leagueModels, Activity context) {
         this.leagueModels = leagueModels;
         this.context = context;
     }
@@ -31,7 +34,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(context).inflate(R.layout.item_table, parent, false);
+        View rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_table, parent, false);
         return new ViewHolder(rootView);
     }
 
@@ -52,8 +55,12 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
         holder.points.setText(points);
         String rank = "" + leagueModels.get(position).getRank();
         holder.rank.setText(rank);
+        String played = "" + leagueModels.get(position).getPlayedGames();
+        holder.played.setText(played);
 
-        Picasso.with(context).load(Uri.parse(leagueModels.get(position).getCrestURI())).into(holder.icon);
+        SvgLoader.pluck()
+                .with(context)
+                .load(leagueModels.get(position).getCrestURI(), holder.icon);
     }
 
     @Override
@@ -62,7 +69,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView id, rank, team, points, goals;
+        private TextView id, rank, team, points, goals, played;
         private LinearLayout tableHeader;
         private ImageView icon;
 
@@ -74,6 +81,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.ViewHolder> 
             team = itemView.findViewById(R.id.team);
             points = itemView.findViewById(R.id.points);
             goals = itemView.findViewById(R.id.goals);
+            played = itemView.findViewById(R.id.played);
             tableHeader = itemView.findViewById(R.id.table_header);
             icon = itemView.findViewById(R.id.icon);
         }

@@ -1,10 +1,16 @@
 package com.codzunk.goalkik.ui;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +26,7 @@ import com.codzunk.goalkik.controllers.firebase.DatabaseRef;
 import com.codzunk.goalkik.controllers.firebase.DatabaseRefController;
 import com.codzunk.goalkik.controllers.model.FixtureModel;
 import com.codzunk.goalkik.controllers.model.GroupModel;
+import com.codzunk.goalkik.data.domain.football.fixture.Fixture;
 import com.codzunk.goalkik.data.domain.football.standings.Standings;
 import com.codzunk.goalkik.prefs.data.PrefDataManger;
 import com.codzunk.goalkik.ui.adapters.DataAdapter;
@@ -30,6 +37,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
     private LinearLayout scoreBoard;
     private boolean isPlaying;
     private AdView mAdView;
+    private TextView info;
 
     private TextView home, homeScore, away, awayScore, timeState, ads;
 
@@ -56,8 +65,15 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Config.context = new WeakReference<>(getApplicationContext());
+
+        //set toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         mAdView = findViewById(R.id.adView);
         ads = findViewById(R.id.ads);
+        info = findViewById(R.id.internet);
         prefManger = ((GoalApp) getApplication()).getDataManger();
 
         MobileAds.initialize(this, "ca-app-pub-9551927371844997~1007897942");
@@ -117,8 +133,14 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
     }
 
     @Override
+    public void getFirebaseError(String message) {
+
+    }
+
+    @Override
     public void getFixture(List<FixtureModel> fixtureList) {
         fixView.setAdapter(new FixAdapter(fixtureList, this));
+        setView(fixtureList);
 
         for (FixtureModel model:
              fixtureList) {
@@ -145,12 +167,90 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
     }
 
     @Override
+    public void getFixtureError(String message) {
+        if (prefManger.isPrefAvailable(Config.FIX_MODEL_DATA)){
+            List<FixtureModel> fixtureList = prefManger.getFixtureModel();
+            setView(fixtureList);
+        }
+        info.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void getTables(Standings standings) {
         standView.setAdapter(new StandAdapter(standings, this));
     }
 
     @Override
-    public void getError(String message) {
+    public void getTableError(String message) {
+        if (prefManger.isPrefAvailable(Config.SQUAD_DATA)){
+            Standings standings = prefManger.getStandings();
+            standView.setAdapter(new StandAdapter(standings, this));
+        }
+        info.setVisibility(View.VISIBLE);
+    }
 
+    public void onFullFixtureClickEvent(View view) {
+        startActivity(new Intent(this, FullFixtureActivity.class));
+    }
+
+    private void setView(List<FixtureModel> fixtureList){
+        fixView.setAdapter(new FixAdapter(fixtureList, this));
+
+        for (FixtureModel model:
+                fixtureList) {
+
+            if (model.getStatus().equals("IN_PLAY")){
+                home.setText(model.getHomeTeamName());
+                homeScore.setText(model.getHome());
+                away.setText(model.getAwayTeamName());
+                awayScore.setText(model.getAway());
+
+                scoreBoard.setVisibility(View.VISIBLE);
+                timeState.setVisibility(View.GONE);
+
+                this.isPlaying = true;
+                break;
+            }
+        }
+
+        if (!isPlaying){
+            timeState.setText(R.string.no_match);
+            scoreBoard.setVisibility(View.GONE);
+            timeState.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dash_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.rating:
+                onUserRatingEvent();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onUserRatingEvent() {
+        Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        // To count with Play market backstack, After pressing back button,
+        // to taken back to our application, we need to add following flags to intent.
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
+        }
     }
 }

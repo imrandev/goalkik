@@ -7,6 +7,7 @@ import com.codzunk.goalkik.constant.Config;
 import com.codzunk.goalkik.controllers.TableController;
 import com.codzunk.goalkik.controllers.api.RetrofitClient;
 import com.codzunk.goalkik.data.domain.football.standings.LeagueTable;
+import com.codzunk.goalkik.data.domain.football.standings.Standings;
 import com.codzunk.goalkik.prefs.data.PrefDataManger;
 
 import retrofit2.Call;
@@ -29,12 +30,14 @@ public class TableRepositoryImpl implements TableRepository, Callback<LeagueTabl
         LeagueTable leagueTable = response.body();
 
         if (leagueTable != null){
-            controller.getTables(leagueTable.getStandings());
+            Standings standings = leagueTable.getStandings();
+            prefManger.setStandings(standings);
+            controller.getTables(standings);
         }
     }
 
     @Override
     public void onFailure(@NonNull Call<LeagueTable> call, @NonNull Throwable t) {
-        controller.getError(t.getMessage());
+        controller.getTableError(t.getMessage());
     }
 }

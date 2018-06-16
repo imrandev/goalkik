@@ -2,7 +2,7 @@
     <string name="app_name">Goal-Kik</string>
     <string name="team_info">Team Information</string>
     <string name="teams">TEAMS</string>
-    <string name="fixture">COMING UP</string>
+    <string name="fixture">FULL FIXTURE</string>
     <string name="match_day">Match</string>
     <string name="standings">STANDINGS</string>
     <string name="live_scores">LIVE SCORES</string>
@@ -18,4 +18,9 @@
     <string name="Banner">ca-app-pub-9551927371844997/7546645313</string>
     <string name="Interstitial">ca-app-pub-9551927371844997/7546645313</string>
     <string name="ads">Ads</string>
+    <string name="see_full_fixture">See full fixture</string>
+    <string name="dashboard">DASHBOARD</string>
+    <string name="no_internet_access">No internet access!</string>
+    <string name="rating">Ratings</string>
+    <string name="search">Search</string>
 </resources>

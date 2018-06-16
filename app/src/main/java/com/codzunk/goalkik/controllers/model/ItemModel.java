@@ -8,6 +8,23 @@ public class ItemModel {
     private String coach;
     private String starPlayer;
     private String icon;
+    private String code;
+
+    public String gethLevel() {
+        return hLevel;
+    }
+
+    public void sethLevel(String hLevel) {
+        this.hLevel = hLevel;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getTeam() {
         return team;

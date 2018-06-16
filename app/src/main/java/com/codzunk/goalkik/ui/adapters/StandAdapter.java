@@ -3,10 +3,12 @@ package com.codzunk.goalkik.ui.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codzunk.goalkik.R;
@@ -49,8 +51,8 @@ public class StandAdapter extends RecyclerView.Adapter<StandAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.group.setText("Group " + groupList.get(position));
-        holder.group.setTag(groupList.get(position));
-        holder.group.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setTag(groupList.get(position));
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickListener.onClick(v, holder.getAdapterPosition());
@@ -256,9 +258,11 @@ public class StandAdapter extends RecyclerView.Adapter<StandAdapter.ViewHolder>{
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView group;
+        private CardView cardView;
         ViewHolder(View itemView) {
             super(itemView);
             group = itemView.findViewById(R.id.group);
+            cardView = itemView.findViewById(R.id.cardView);
         }
 
         @Override

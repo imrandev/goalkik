@@ -6,10 +6,12 @@ import com.codzunk.goalkik.application.GoalApp;
 import com.codzunk.goalkik.constant.Config;
 import com.codzunk.goalkik.controllers.SquadController;
 import com.codzunk.goalkik.controllers.api.RetrofitClient;
+import com.codzunk.goalkik.controllers.model.PlayerModel;
 import com.codzunk.goalkik.data.domain.football.squad.Player;
 import com.codzunk.goalkik.data.domain.football.squad.Squad;
 import com.codzunk.goalkik.prefs.data.PrefDataManger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,10 +32,21 @@ public class SquadRepositoryImpl implements SquadRepository, Callback<Squad> {
     @Override
     public void onResponse(@NonNull Call<Squad> call, @NonNull Response<Squad> response) {
         Squad squad = response.body();
+        prefManger.setSquad(squad);
 
         if (squad != null){
             List<Player> playerList = squad.getPlayers();
-            controller.getSquad(playerList);
+            List<PlayerModel> modelList = new ArrayList<>(2);
+            for (Player player: playerList) {
+                PlayerModel model = new PlayerModel();
+                model.setName(player.getName());
+                String jersey = "" + player.getJerseyNumber();
+                model.setJerseyNumber(jersey);
+                model.setPosition(player.getPosition());
+                model.setDateOfBirth(player.getDateOfBirth());
+                modelList.add(model);
+            }
+            controller.getSquad(modelList);
         }
     }
 

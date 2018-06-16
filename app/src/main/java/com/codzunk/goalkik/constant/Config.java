@@ -12,6 +12,9 @@ public class Config {
     public static final String MY_TEAM = "my-team";
     public static final String GROUP_DATA = "group-data";
     public static final String FIX_DATA = "fix-data";
+    public static final String FIX_MODEL_DATA = "fix-model-data";
+    public static final String SQUAD_DATA = "squad-data";
+    public static final String STAND_DATA = "stand-data";
     public static final String RANK = "Rank";
     public static final String PLAYED = "Played";
     public static final int TOTAL_TEAM = 32;

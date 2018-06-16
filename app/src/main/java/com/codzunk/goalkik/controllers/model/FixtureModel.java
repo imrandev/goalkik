@@ -1,12 +1,14 @@
 package com.codzunk.goalkik.controllers.model;
 
+import com.codzunk.goalkik.data.domain.football.fixture.Fixture;
+
 public class FixtureModel {
     private int count;
     private String date;
     private String time;
     private String homeTeamName;
     private String awayTeamName;
-    private boolean isToday;
+    private int isToday;
     private String status;
 
     private String home;
@@ -53,11 +55,11 @@ public class FixtureModel {
         this.time = time;
     }
 
-    public boolean isToday() {
+    public int isToday() {
         return isToday;
     }
 
-    public void setToday(boolean today) {
+    public void setToday(int today) {
         isToday = today;
     }
 

@@ -54,6 +54,7 @@ public class DatabaseRepoImpl implements DatabaseRepo {
                     itemModel.setStarPlayer(item.getStarPlayer());
                     itemModel.setTeam(item.getTeam());
                     itemModel.setIcon(item.getIcon());
+                    itemModel.setCode(item.getCode());
 
                     itemModels.add(itemModel);
                 }
@@ -66,6 +67,6 @@ public class DatabaseRepoImpl implements DatabaseRepo {
 
     @Override
     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+        refController.getFirebaseError(databaseError.getMessage());
     }
 }
