@@ -23,6 +23,7 @@ public class FixAdapter extends RecyclerView.Adapter<FixAdapter.ViewHolder> {
     private Context context;
     private boolean isToday;
     private boolean isTomorrow;
+    private boolean isYesterday;
 
     public FixAdapter(List<FixtureModel> fixtureList, Context context) {
         this.fixtureList = fixtureList;
@@ -43,14 +44,7 @@ public class FixAdapter extends RecyclerView.Adapter<FixAdapter.ViewHolder> {
         String between = fixtureList.get(position).getHomeTeamName() + " vs " + fixtureList.get(position).getAwayTeamName();
         holder.match_between.setText(between);
         holder.match_time.setText(fixtureList.get(position).getTime());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            String dayOfTheWeek = (String) DateFormat.format("EEEE", format.parse(fixtureList.get(position).getDate()));
-            holder.match_date.setText(dayOfTheWeek);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        String date = fixtureList.get(position).getDate();
 
         if (fixtureList.get(position).isToday() == 0){
             if (!isTomorrow){
@@ -59,6 +53,15 @@ public class FixAdapter extends RecyclerView.Adapter<FixAdapter.ViewHolder> {
             } else {
                 holder.today.setVisibility(View.GONE);
             }
+            holder.match_date.setText(getDay(date));
+        } else if (fixtureList.get(position).isToday() == -1) {
+            if (!isYesterday){
+                holder.today.setText(R.string.yesterday);
+                this.isYesterday = true;
+            } else {
+                holder.today.setVisibility(View.GONE);
+            }
+            holder.match_date.setText(getDay(date));
         } else if (fixtureList.get(position).isToday() == 1) {
             if (!isToday){
                 holder.today.setText(R.string.today);
@@ -66,8 +69,10 @@ public class FixAdapter extends RecyclerView.Adapter<FixAdapter.ViewHolder> {
             } else {
                 holder.today.setVisibility(View.GONE);
             }
+            holder.match_date.setText(getDay(date));
         } else {
             holder.today.setVisibility(View.GONE);
+            holder.match_date.setText(date);
         }
 
         String status = fixtureList.get(position).getStatus();
@@ -105,6 +110,16 @@ public class FixAdapter extends RecyclerView.Adapter<FixAdapter.ViewHolder> {
             today = itemView.findViewById(R.id.today);
             live = itemView.findViewById(R.id.live);
             result = itemView.findViewById(R.id.result);
+        }
+    }
+
+    private String getDay(String date){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            return  (String) DateFormat.format("EEEE", format.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return e.getMessage();
         }
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Goal-Kik</string>
+    <string name="app_name">GoalKicker</string>
     <string name="team_info">Team Information</string>
     <string name="teams">TEAMS</string>
     <string name="fixture">FULL FIXTURE</string>
@@ -8,7 +8,7 @@
     <string name="live_scores">LIVE SCORES</string>
     <string name="tomorrow">TOMORROW</string>
     <string name="today">TODAY</string>
-    <string name="no_match">No Match Starts Yet!</string>
+    <string name="no_match">No Live Match Starts Yet!</string>
     <string name="bullet_symbol">\u2022 Live</string>
     <string name="ended">Ended</string>
 
@@ -17,10 +17,13 @@
 
     <string name="Banner">ca-app-pub-9551927371844997/7546645313</string>
     <string name="Interstitial">ca-app-pub-9551927371844997/7546645313</string>
+
     <string name="ads">Ads</string>
-    <string name="see_full_fixture">See full fixture</string>
+    <string name="see_full_fixture">SEE FULL FIXTURE</string>
     <string name="dashboard">DASHBOARD</string>
-    <string name="no_internet_access">No internet access!</string>
+    <string name="no_internet_access">Unable to connect with host!</string>
     <string name="rating">Ratings</string>
     <string name="search">Search</string>
+    <string name="yesterday">YESTERDAY</string>
+    <string name="reload">RELOAD</string>
 </resources>

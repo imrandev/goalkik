@@ -72,6 +72,20 @@ public class FixtureRepositoryImpl implements FixtureRepository, Callback<Footba
                             fixture.setAway("" + fixtureList.get(i).getResult().getGoalsAwayTeam().toString().charAt(0));
                         }
                         modelList.add(fixture);
+                    } else if (isTodayOrTomorrow(date) == -1){
+                        FixtureModel fixture = new FixtureModel();
+                        fixture.setCount(i+1);
+                        fixture.setHomeTeamName(fixtureList.get(i).getHomeTeamName());
+                        fixture.setAwayTeamName(fixtureList.get(i).getAwayTeamName());
+                        fixture.setDate(date);
+                        fixture.setTime(time);
+                        fixture.setStatus(fixtureList.get(i).getStatus());
+                        fixture.setToday(-1);
+                        if (fixtureList.get(i).getResult().getGoalsHomeTeam() != null){
+                            fixture.setHome("" + fixtureList.get(i).getResult().getGoalsHomeTeam().toString().charAt(0));
+                            fixture.setAway("" + fixtureList.get(i).getResult().getGoalsAwayTeam().toString().charAt(0));
+                        }
+                        modelList.add(fixture);
                     } else if (isTodayOrTomorrow(date) == 1){
                         FixtureModel fixture = new FixtureModel();
                         fixture.setCount(i+1);
@@ -141,22 +155,30 @@ public class FixtureRepositoryImpl implements FixtureRepository, Callback<Footba
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(today);
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        Date tomorrow = cal.getTime();
+        Calendar calT = Calendar.getInstance();
+        calT.setTime(today);
+        calT.add(Calendar.DAY_OF_MONTH, 1);
+        Date tomorrow = calT.getTime();
+
+        Calendar calY = Calendar.getInstance();
+        calY.setTime(today);
+        calY.add(Calendar.DAY_OF_MONTH, -1);
+        Date yesterday = calY.getTime();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         String todayAsString = dateFormat.format(today);
         String tomorrowAsString = dateFormat.format(tomorrow);
+        String yesterdayAsString = dateFormat.format(yesterday);
 
         if (date.equals(todayAsString)) {
             return 0;
-        } else if ( date.equals(tomorrowAsString)) {
+        } else if (date.equals(tomorrowAsString)) {
             return 1;
-        } else {
+        } else if (date.equals(yesterdayAsString)){
             return -1;
+        }  else {
+            return 2;
         }
     }
 }

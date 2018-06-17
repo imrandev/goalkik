@@ -58,6 +58,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             String rank = Config.RANK + " " + modelList.get(size).getItemModels().get(item).getRank();
             holder.rank.setText(rank);
             holder.team.setText(modelList.get(size).getItemModels().get(item).getTeam());
+            String coach = "COACH : " + modelList.get(size).getItemModels().get(item).getCoach();
+            holder.coach.setText(coach);
             holder.cardView.setTag(modelList.get(size).getItemModels().get(item).getCode());
 
             Picasso.with(context).load(Uri.parse(modelList.get(size).getItemModels().get(item).getIcon())).into(holder.icon);
@@ -88,7 +90,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView name, rank, team;
+        private TextView name, rank, team, coach;
         private ImageView icon;
         private CardView cardView;
 
@@ -99,6 +101,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             rank = itemView.findViewById(R.id.rank);
             team = itemView.findViewById(R.id.team);
             icon = itemView.findViewById(R.id.icon);
+            coach = itemView.findViewById(R.id.coach);
             cardView = itemView.findViewById(R.id.cardView);
         }
 

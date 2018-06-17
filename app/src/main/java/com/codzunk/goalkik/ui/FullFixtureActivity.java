@@ -37,7 +37,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FullFixtureActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private ArrayAdapter<String> teamsAdapter;
     private List<FixtureModel> modelList;
     private SearchView.SearchAutoComplete searchAutoComplete;
     private RecyclerView fixView;
@@ -138,7 +137,7 @@ public class FullFixtureActivity extends AppCompatActivity implements SearchView
 
         String[] teamList = getResources().getStringArray(R.array._team);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, teamList);
         searchAutoComplete.setAdapter(adapter);
 

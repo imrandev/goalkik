@@ -7,20 +7,33 @@
     android:background="@android:color/white">
 
     <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/action_status_size"
         android:layout_width="match_parent"
         app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        >
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:title="@string/dashboard"
-            app:contentInsetStartWithNavigation="0dp"
-            app:navigationIcon="@drawable/ic_football"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_action_bar_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <android.support.v7.widget.Toolbar
+                android:layout_marginTop="24dp"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/dashboard"
+                app:contentInsetStartWithNavigation="0dp"
+                app:navigationIcon="@drawable/ic_football"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        </android.support.design.widget.CoordinatorLayout>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -34,23 +47,45 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/internet"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:background="#80000000"
-                android:text="@string/no_internet_access"
+            <LinearLayout
+                android:id="@+id/error_board"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                android:orientation="horizontal"
+                android:background="#80000000"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/internet"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:text="@string/no_internet_access"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                <Button
+                    android:layout_margin="5dp"
+                    android:id="@+id/btn_reload"
+                    android:layout_weight=".1"
+                    android:text="@string/reload"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/btn_click_drawable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onReloadEventListener"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/ads"
+                android:visibility="gone"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"

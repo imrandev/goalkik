@@ -12,10 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codzunk.goalkik.R;
+import com.codzunk.goalkik.advertise.AdService;
 import com.codzunk.goalkik.application.GoalApp;
 import com.codzunk.goalkik.constant.Config;
 import com.codzunk.goalkik.controllers.FixtureController;
@@ -50,10 +52,15 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
     private PrefDataManger prefManger;
     private LinearLayout scoreBoard;
     private boolean isPlaying;
-    private AdView mAdView;
     private TextView info;
 
-    private TextView home, homeScore, away, awayScore, timeState, ads;
+    private TextView home;
+    private TextView homeScore;
+    private TextView away;
+    private TextView awayScore;
+    private TextView timeState;
+
+    private LinearLayout errorBoard;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -71,31 +78,18 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mAdView = findViewById(R.id.adView);
-        ads = findViewById(R.id.ads);
+        AdView mAdView = findViewById(R.id.adView);
+        TextView ads = findViewById(R.id.ads);
         info = findViewById(R.id.internet);
         prefManger = ((GoalApp) getApplication()).getDataManger();
 
-        MobileAds.initialize(this, "ca-app-pub-9551927371844997~1007897942");
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                mAdView.setVisibility(View.GONE);
-                ads.setVisibility(View.GONE);
-            }
-        });
+        AdService service = new AdService(mAdView, this, ads);
+        service.init();
 
         recyclerView = findViewById( R.id.listView);
         fixView = findViewById( R.id.fixView);
         standView = findViewById( R.id.standView);
+        errorBoard = findViewById( R.id.error_board);
 
         home = findViewById(R.id.home);
         homeScore = findViewById(R.id.home_score);
@@ -121,9 +115,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
         standView.setLayoutManager(standLayoutManager);
 
         DatabaseRef.init().initGroupData(this);
-
         FixtureRef.init().initFixture(this, Config.FIXTURE_URL);
-
         TableRef.init().initFixture(this, Config.STANDINGS_URL);
     }
 
@@ -134,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
 
     @Override
     public void getFirebaseError(String message) {
-
+        info.setText(message);
+        info.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -172,7 +165,8 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
             List<FixtureModel> fixtureList = prefManger.getFixtureModel();
             setView(fixtureList);
         }
-        info.setVisibility(View.VISIBLE);
+        info.setText(message);
+        errorBoard.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -182,11 +176,12 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
 
     @Override
     public void getTableError(String message) {
-        if (prefManger.isPrefAvailable(Config.SQUAD_DATA)){
+        if (prefManger.isPrefAvailable(Config.STAND_DATA)){
             Standings standings = prefManger.getStandings();
             standView.setAdapter(new StandAdapter(standings, this));
         }
-        info.setVisibility(View.VISIBLE);
+        info.setText(message);
+        errorBoard.setVisibility(View.VISIBLE);
     }
 
     public void onFullFixtureClickEvent(View view) {
@@ -252,5 +247,10 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName())));
         }
+    }
+
+    public void onReloadEventListener(View view) {
+        finish();
+        startActivity(getIntent());
     }
 }

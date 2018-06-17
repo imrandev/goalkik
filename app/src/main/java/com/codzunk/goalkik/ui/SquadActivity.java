@@ -47,7 +47,7 @@ public class SquadActivity extends AppCompatActivity implements SquadController 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         squadView.setLayoutManager(layoutManager);
 
-        SquadRef.init().initSquad(this, "/v1/teams/" + code + "/players");
+        SquadRef.init().initSquad(this, Config.init().getSquadUrl(code));
     }
 
     @Override
@@ -61,6 +61,7 @@ public class SquadActivity extends AppCompatActivity implements SquadController 
 
     @Override
     public void getError(String message) {
+        Toast.makeText(this, "" + message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

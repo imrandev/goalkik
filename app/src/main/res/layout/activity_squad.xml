@@ -7,29 +7,40 @@
     tools:context=".ui.SquadActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/action_status_size"
         android:layout_width="match_parent"
         app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        >
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:title="SQUAD"
-            app:contentInsetStartWithNavigation="0dp"
-            app:navigationIcon="@drawable/ic_football"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_action_bar_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <android.support.v7.widget.Toolbar
+                android:layout_marginTop="24dp"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="SQUAD"
+                app:contentInsetStartWithNavigation="0dp"
+                app:navigationIcon="@drawable/ic_football"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        </android.support.design.widget.CoordinatorLayout>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/squadView"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.codzunk.goalkik.R;
+import com.codzunk.goalkik.advertise.AdService;
 import com.codzunk.goalkik.controllers.model.LeagueModel;
 import com.codzunk.goalkik.ui.adapters.TableAdapter;
 import com.google.android.gms.ads.AdListener;
@@ -23,14 +24,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class TableActivity extends AppCompatActivity {
 
-    private AdView mAdView;
-    private TextView ads;
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,24 +42,11 @@ public class TableActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mAdView = findViewById(R.id.adView);
-        ads = findViewById(R.id.ads);
+        AdView mAdView = findViewById(R.id.adView);
+        TextView ads = findViewById(R.id.ads);
 
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                mAdView.setVisibility(View.GONE);
-                ads.setVisibility(View.GONE);
-            }
-        });
+        AdService service = new AdService(mAdView, this, ads);
+        service.init();
 
         ArrayList<LeagueModel> arrayList = (ArrayList<LeagueModel>) getIntent().getSerializableExtra("arrayList");
 
