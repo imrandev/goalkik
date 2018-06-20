@@ -3,6 +3,7 @@ package com.codzunk.goalkik.ui;
 import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,11 +36,13 @@ import java.util.TimeZone;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class FullFixtureActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class FullFixtureActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SwipeRefreshLayout.OnRefreshListener {
 
     private List<FixtureModel> modelList;
     private SearchView.SearchAutoComplete searchAutoComplete;
     private RecyclerView fixView;
+    private SwipeRefreshLayout swipeLayout;
+    private SearchView searchView;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -55,14 +58,18 @@ public class FullFixtureActivity extends AppCompatActivity implements SearchView
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
 
         PrefDataManger prefManger = ((GoalApp) getApplicationContext()).getDataManger();
         List<Fixture> fixtureList = prefManger.getFixture();
 
         fixView = findViewById(R.id.fixView);
+        swipeLayout = findViewById(R.id.swipeLayout);
+        swipeLayout.setOnRefreshListener(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         fixView.setLayoutManager(layoutManager);
@@ -131,7 +138,7 @@ public class FullFixtureActivity extends AppCompatActivity implements SearchView
 
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView ) menu.findItem(R.id.menu_search).getActionView();
+        searchView = (SearchView ) menu.findItem(R.id.menu_search).getActionView();
 
         searchAutoComplete = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
 
@@ -184,5 +191,22 @@ public class FullFixtureActivity extends AppCompatActivity implements SearchView
             }
         }
         fixView.setAdapter(new FixAdapter(models, this));
+    }
+
+    @Override
+    public void onRefresh() {
+        if (swipeLayout.isRefreshing()){
+            fixView.setAdapter(new FixAdapter(modelList, this));
+            swipeLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isIconified()){
+            fixView.setAdapter(new FixAdapter(modelList, this));
+        } else {
+            super.onBackPressed();
+        }
     }
 }

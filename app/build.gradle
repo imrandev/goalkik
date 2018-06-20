@@ -6,7 +6,7 @@ android {
         applicationId "com.codzunk.goalkik"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 6
+        versionCode 7
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +35,7 @@ ext {
     firebaseVersion = '16.0.1'
     // Firebase dependencies
     firebaseDependencies = [
-            core        : "com.google.firebase:firebase-core:${firebaseVersion}",
+            //core        : "com.google.firebase:firebase-core:${firebaseVersion}",
             database    : "com.google.firebase:firebase-database:${firebaseVersion}",
             storage     : "com.google.firebase:firebase-storage:${firebaseVersion}",
             crash       : "com.google.firebase:firebase-crash:${firebaseVersion}",
