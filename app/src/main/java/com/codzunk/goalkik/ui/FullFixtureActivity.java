@@ -148,9 +148,11 @@ public class FullFixtureActivity extends AppCompatActivity implements SearchView
                 android.R.layout.simple_list_item_1, teamList);
         searchAutoComplete.setAdapter(adapter);
 
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(this);
+        if (searchManager != null) {
+            searchView.setSearchableInfo(
+                    searchManager.getSearchableInfo(getComponentName()));
+            searchView.setOnQueryTextListener(this);
+        }
 
         searchAutoComplete.setOnItemClickListener(onItemClickListener);
         return super.onCreateOptionsMenu(menu);
@@ -205,6 +207,7 @@ public class FullFixtureActivity extends AppCompatActivity implements SearchView
     public void onBackPressed() {
         if (searchView.isIconified()){
             fixView.setAdapter(new FixAdapter(modelList, this));
+            searchView.setIconified(false);
         } else {
             super.onBackPressed();
         }
