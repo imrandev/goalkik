@@ -61,6 +61,8 @@ public class Config {
     //Url
     public static final String FIXTURE_URL = "/v1/competitions/" + FIFA_CODE + "/fixtures";
     public static final String STANDINGS_URL = "/v1/competitions/" + FIFA_CODE + "/leagueTable";
+    public static final String ADMOB_APP_ID = "ca-app-pub-9551927371844997~1007897942";
+    public static final String ADMOB_INTERESTITIAL_ID = "";
 
     public static WeakReference<Context> context;
 

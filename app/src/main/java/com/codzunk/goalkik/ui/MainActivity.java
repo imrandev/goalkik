@@ -12,12 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.codzunk.goalkik.R;
-import com.codzunk.goalkik.advertise.AdService;
+import com.codzunk.goalkik.advert.AdService;
 import com.codzunk.goalkik.application.GoalApp;
 import com.codzunk.goalkik.constant.Config;
 import com.codzunk.goalkik.controllers.FixtureController;
@@ -28,16 +27,12 @@ import com.codzunk.goalkik.controllers.firebase.DatabaseRef;
 import com.codzunk.goalkik.controllers.firebase.DatabaseRefController;
 import com.codzunk.goalkik.controllers.model.FixtureModel;
 import com.codzunk.goalkik.controllers.model.GroupModel;
-import com.codzunk.goalkik.data.domain.football.fixture.Fixture;
 import com.codzunk.goalkik.data.domain.football.standings.Standings;
 import com.codzunk.goalkik.prefs.data.PrefDataManger;
 import com.codzunk.goalkik.ui.adapters.DataAdapter;
 import com.codzunk.goalkik.ui.adapters.FixAdapter;
 import com.codzunk.goalkik.ui.adapters.StandAdapter;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -84,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
         prefManger = ((GoalApp) getApplication()).getDataManger();
 
         AdService service = new AdService(mAdView, this, ads);
-        service.init();
+        service.initBanner();
 
         recyclerView = findViewById( R.id.listView);
         fixView = findViewById( R.id.fixView);
