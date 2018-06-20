@@ -25,4 +25,4 @@ The whole world is now in FIFA World Cup Russia 2018 fever. GoalKicker app will 
 <img src="https://lh3.googleusercontent.com/eqRxEEwmbtygjh_BKNqG9QEkqvq1z1oDQ6WKS52Q_T7-GyXDPJE799fSvFrUQ4Ctjfc=w1365-h694" alt="GOALKICKER"/>
 <img src="https://lh3.googleusercontent.com/ivQjbgocOAM5vzi69pjGgTSSuR608T5105vvR6vVDsOvrcTFW3ecCqxSKwa5h6MO2W4=w1365-h694" alt="GOALKICKER"/>
 <img src="https://lh3.googleusercontent.com/w8zgrpLC1sTUlh0zuRrvj2lQtiWwVmJOlECxxRsYz3LUdlkHdWN2vsqnORDQMCuR8F0=w1365-h694" alt="GOALKICKER"/>
-<img src="https://lh3.googleusercontent.com/v7cUYWB8EtZ8vR4FJvKb2kusGP3w96OqtniSZhp37utVgxKb4wBaLu0WmRDnMnJMAuDF=w1365-h694" alt="GOALKICKER"/></span>
+<img src="https://lh3.googleusercontent.com/v7cUYWB8EtZ8vR4FJvKb2kusGP3w96OqtniSZhp37utVgxKb4wBaLu0WmRDnMnJMAuDF=w1365-h694" alt="GOALKICKER"/></span> 
