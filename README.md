@@ -1,5 +1,5 @@
 # GoalKicker
-<a href="https://play.google.com/store/apps/details?id=com.nerdgeeks.foodmap&hl=en"><img src="https://stickeroid.com/uploads/pic/thumb/stickeroid_59c6614527b74.png"></img></a>
+<a href="https://play.google.com/store/apps/details?id=com.codzunk.goalkik&hl=en"><img src="https://stickeroid.com/uploads/pic/thumb/stickeroid_59c6614527b74.png"></img></a>
 </br>
 </br>
 The whole world is now in FIFA World Cup Russia 2018 fever. GoalKicker app will now give the football fans the latest update of every World Cup match. So feel the moment of magic in the air with us.
