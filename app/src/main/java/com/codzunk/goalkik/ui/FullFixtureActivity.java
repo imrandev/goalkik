@@ -36,7 +36,8 @@ import java.util.TimeZone;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class FullFixtureActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SwipeRefreshLayout.OnRefreshListener {
+public class FullFixtureActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     private List<FixtureModel> modelList;
     private SearchView.SearchAutoComplete searchAutoComplete;

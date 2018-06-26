@@ -27,14 +27,17 @@ import com.codzunk.goalkik.controllers.firebase.DatabaseRef;
 import com.codzunk.goalkik.controllers.firebase.DatabaseRefController;
 import com.codzunk.goalkik.controllers.model.FixtureModel;
 import com.codzunk.goalkik.controllers.model.GroupModel;
+import com.codzunk.goalkik.controllers.model.ScoreModel;
 import com.codzunk.goalkik.data.domain.football.standings.Standings;
 import com.codzunk.goalkik.prefs.data.PrefDataManger;
 import com.codzunk.goalkik.ui.adapters.DataAdapter;
 import com.codzunk.goalkik.ui.adapters.FixAdapter;
+import com.codzunk.goalkik.ui.adapters.ScoreAdapter;
 import com.codzunk.goalkik.ui.adapters.StandAdapter;
 import com.google.android.gms.ads.AdView;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -44,16 +47,10 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
     private RecyclerView recyclerView;
     private RecyclerView fixView;
     private RecyclerView standView;
+    private RecyclerView scoreView;
     private PrefDataManger prefManger;
-    private LinearLayout scoreBoard;
     private boolean isPlaying;
     private TextView info;
-
-    private TextView home;
-    private TextView homeScore;
-    private TextView away;
-    private TextView awayScore;
-    private TextView timeState;
 
     private LinearLayout errorBoard;
 
@@ -84,23 +81,19 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
         recyclerView = findViewById( R.id.listView);
         fixView = findViewById( R.id.fixView);
         standView = findViewById( R.id.standView);
+        scoreView = findViewById( R.id.scoreView);
         errorBoard = findViewById( R.id.error_board);
-
-        home = findViewById(R.id.home);
-        homeScore = findViewById(R.id.home_score);
-        away = findViewById(R.id.away);
-        awayScore = findViewById(R.id.away_score);
-        timeState = findViewById(R.id.timing_state);
-        scoreBoard = findViewById(R.id.score_board);
-
 
         recyclerView.setNestedScrollingEnabled(false);
         fixView.setNestedScrollingEnabled(false);
         standView.setNestedScrollingEnabled(false);
+        scoreView.setNestedScrollingEnabled(false);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager fixLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager scoreLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager standLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
@@ -108,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
         recyclerView.setLayoutManager(layoutManager);
         fixView.setLayoutManager(fixLayoutManager);
         standView.setLayoutManager(standLayoutManager);
+        scoreView.setLayoutManager(scoreLayoutManager);
 
         DatabaseRef.init().initGroupData(this);
         FixtureRef.init().initFixture(this, Config.FIXTURE_URL);
@@ -129,29 +123,6 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
     public void getFixture(List<FixtureModel> fixtureList) {
         fixView.setAdapter(new FixAdapter(fixtureList, this));
         setView(fixtureList);
-
-        for (FixtureModel model:
-             fixtureList) {
-
-            if (model.getStatus().equals("IN_PLAY")){
-                home.setText(model.getHomeTeamName());
-                homeScore.setText(model.getHome());
-                away.setText(model.getAwayTeamName());
-                awayScore.setText(model.getAway());
-
-                scoreBoard.setVisibility(View.VISIBLE);
-                timeState.setVisibility(View.GONE);
-
-                this.isPlaying = true;
-                break;
-            }
-        }
-
-        if (!isPlaying){
-            timeState.setText(R.string.no_match);
-            scoreBoard.setVisibility(View.GONE);
-            timeState.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
@@ -186,28 +157,32 @@ public class MainActivity extends AppCompatActivity implements DatabaseRefContro
     private void setView(List<FixtureModel> fixtureList){
         fixView.setAdapter(new FixAdapter(fixtureList, this));
 
+        List<ScoreModel> modelList = new ArrayList<>(2);
+
         for (FixtureModel model:
                 fixtureList) {
 
             if (model.getStatus().equals("IN_PLAY")){
-                home.setText(model.getHomeTeamName());
-                homeScore.setText(model.getHome());
-                away.setText(model.getAwayTeamName());
-                awayScore.setText(model.getAway());
+                ScoreModel scoreModel = new ScoreModel();
+                scoreModel.setHomeTeam(model.getHomeTeamName());
+                scoreModel.setHomeGoal(model.getHome());
+                scoreModel.setAwayTeam(model.getAwayTeamName());
+                scoreModel.setAwayGoal(model.getAway());
+                scoreModel.setPlaying(true);
 
-                scoreBoard.setVisibility(View.VISIBLE);
-                timeState.setVisibility(View.GONE);
+                modelList.add(scoreModel);
 
                 this.isPlaying = true;
-                break;
             }
         }
 
         if (!isPlaying){
-            timeState.setText(R.string.no_match);
-            scoreBoard.setVisibility(View.GONE);
-            timeState.setVisibility(View.VISIBLE);
+            ScoreModel scoreModel = new ScoreModel();
+            scoreModel.setPlaying(false);
+            modelList.add(scoreModel);
         }
+
+        scoreView.setAdapter(new ScoreAdapter(modelList));
     }
 
     @Override

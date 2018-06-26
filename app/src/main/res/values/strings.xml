@@ -8,7 +8,7 @@
     <string name="live_scores">LIVE SCORES</string>
     <string name="tomorrow">TOMORROW</string>
     <string name="today">TODAY</string>
-    <string name="no_match">No Live Match Starts Yet!</string>
+    <string name="no_match">No Match is Live now!</string>
     <string name="bullet_symbol">\u2022 Live</string>
     <string name="ended">Ended</string>
 

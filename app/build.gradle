@@ -6,7 +6,7 @@ android {
         applicationId "com.codzunk.goalkik"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 8
+        versionCode 9
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -78,6 +78,11 @@ ext {
     playService = [
             adMod: "com.google.android.gms:play-services-ads:${playServiceVersion}"
     ]
+
+    jsoupVersion = '1.10.3'
+    jsoupDependency =  [
+            jsoup: "org.jsoup:jsoup:${jsoupVersion}"
+    ]
 }
 
 dependencies {
@@ -96,6 +101,7 @@ dependencies {
     implementation retrofit2Dependencies.converter_gson
     implementation svgLoader.loader
     implementation playService.adMod
+    implementation jsoupDependency.jsoup
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
